@@ -17,3 +17,11 @@ export function createMarkupOneProduct({ thumbnail, title, description }) {
         <p class="description">${description}</p>
       </div>`;
 }
+
+export function createMarkupNewProduct({ title, description, price }) {
+  return `<div class="list-card">
+        <h3>${title}</h3>
+        <p class="description">${description}</p>
+        <p class="description">${price}</p>
+      </div>`;
+}

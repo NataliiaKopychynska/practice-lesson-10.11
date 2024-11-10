@@ -1,17 +1,24 @@
 import './styles/normalize.css';
 import './styles/index.css';
-import { getAllProducts, getProductById } from './requests/products';
+import {
+  getAllProducts,
+  getProductById,
+  addProduct,
+} from './requests/products';
 import {
   createMarkupAllProducts,
   createMarkupOneProduct,
+  createMarkupNewProduct,
 } from './services/markupService';
 
 const container = document.querySelector('#allProducts');
 const productForm = document.querySelector('#singleProductForm');
 const singleProduct = document.querySelector('#singleProduct');
+const newProductForm = document.querySelector('#newProductForm');
+const newProductSection = document.querySelector('#newProductSection');
 
 productForm.addEventListener('submit', renderProductById);
-
+newProductForm.addEventListener('submit', handleNewProduct);
 // getAllProducts()
 //   .then(data => {
 //     container.insertAdjacentHTML(
@@ -47,3 +54,22 @@ async function renderProductById(event) {
 }
 
 renderAllProducts();
+
+async function handleNewProduct(event) {
+  event.preventDefault();
+
+  const title = event.target.elements.title.value;
+  const description = event.target.elements.description.value;
+  const price = event.target.elements.price.value;
+
+  const newProductObj = { title, description, price };
+
+  const addedProduct = await addProduct(newProductObj);
+
+  newProductSection.innerHTML = '';
+
+  newProductSection.insertAdjacentHTML(
+    'beforeend',
+    createMarkupNewProduct(addedProduct)
+  );
+}
