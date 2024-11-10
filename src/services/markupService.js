@@ -9,3 +9,11 @@ export function createMarkupAllProducts(products) {
     )
     .join('');
 }
+
+export function createMarkupOneProduct({ thumbnail, title, description }) {
+  return `<div class="list-card">
+        <img src="${thumbnail}" alt="${title}" />
+        <h3>${title}</h3>
+        <p class="description">${description}</p>
+      </div>`;
+}
